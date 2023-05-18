@@ -13,7 +13,33 @@ def ksa(key):
 
     return schedule
 
-def create_stream():
-    stream[]
+def create_stream(schedule):
+    stream=[]
 
-print(ksa([2,3,4]))
+    j=0
+    i=0
+    while True:
+        i=(i+1)%256
+        j=(schedule[i]+j)%256
+
+        schedule[i], schedule[j] = schedule[j], schedule[i]
+
+        yield schedule[(schedule[i]+schedule[j])%256]
+
+def rc4_encrypt(message,key):
+    message=[ord(c) for c in message]
+    key=[ord(c) for c in key]
+
+    schedule=ksa(key)
+    stream=create_stream(schedule)
+
+    result=''
+    for character in message:
+        encrypted=str(chr(character ^ next(stream)))
+        result+=encrypted
+
+    return result
+
+
+s=[ord(c) for c in 'secret']
+print(ksa(s))
