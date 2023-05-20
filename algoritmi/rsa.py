@@ -1,6 +1,7 @@
 from math import sqrt, gcd
 from random import randint
 
+prime_numbers=[]
 private_key=None
 public_key=()
 n=None
@@ -15,15 +16,25 @@ def isprime(number):
             return False
     return True
 
+def sieve_of_eratosthenes():
+    sieve=[True for i in range(250)]
+    sieve[0]=False
+    sieve[1]=False
 
-def generate_prime_numbers():
-    p = randint(1000, 10000)
-    q = randint(1000, 10000)
-    while p==q or not (isprime(p) and isprime(q)):
-        p = randint(1000, 10000)
-        q = randint(1000, 10000)
-    return p, q
+    for i in range(2,250):
+        for j in range(i*2,250,i):
+            sieve[j]=False
 
+    for i in range(len(sieve)):
+        if sieve[i]:
+            prime_numbers.append(i)
+
+def generate_prime_number():
+    num=randint(0,len(prime_numbers)-1)
+
+    number=prime_numbers[num]
+    prime_numbers.pop(num)
+    return number
 
 def get_e(fi):
     e = 2
@@ -40,7 +51,9 @@ def get_d(e, fi):
 
 
 def get_keys():
-    p, q = generate_prime_numbers()
+    sieve_of_eratosthenes()
+    p=generate_prime_number()
+    q=generate_prime_number()
 
     global n
     n = p * q
@@ -87,7 +100,7 @@ def decrypt(message):
             d-=1
         result.append(chr(decrypted))
 
-    return result
+    return "".join(result)
 
 if __name__=="__main__":
     get_keys()
@@ -95,8 +108,9 @@ if __name__=="__main__":
         f.write(f"{str(public_key[0])}\n")
         f.write(f"{str(public_key[1])}\n")
         f.write(str(private_key))
-
     enc=encrypt('mesaj')
+
+    print(enc)
 
     with open('public_key.txt','r') as f:
         lines=f.readlines()
