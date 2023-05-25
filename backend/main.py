@@ -2,9 +2,21 @@ from fastapi import FastAPI, Request
 from algoritmi.rsa import *
 from algoritmi.rc4 import *
 import os
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
+origins = [
+    "http://localhost:4200"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.post("/api/encrypt/rsa")
 async def rsa_encrypt(request: Request):
