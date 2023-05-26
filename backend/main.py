@@ -1,8 +1,10 @@
 from fastapi import FastAPI, Request
 from algoritmi.rsa import *
 from algoritmi.rc4 import *
+from algoritmi.aes import *
 import os
 from fastapi.middleware.cors import CORSMiddleware
+from Crypto.Random import get_random_bytes
 
 app = FastAPI()
 
@@ -17,6 +19,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+iv=get_random_bytes(16)
 
 @app.post("/api/encrypt/rsa")
 async def rsa_encrypt(request: Request):
@@ -52,3 +56,19 @@ async def decrypt_rc4(request: Request):
     key=data['key']
 
     return rc4_decrypt(message,key)
+
+@app.post("/api/encrypt/aes")
+async def encrypt_aes(request: Request):
+    data = await request.json()
+    message = data["message"]
+    key = data["key"]
+
+    return AES_encrypt(message,key,iv)
+
+@app.post("/api/decrypt/aes")
+async def decrypt_aes(request: Request):
+    data = await request.json()
+    message = data["message"]
+    key = data["key"]
+
+    return AES_decrypt(message,key,iv)

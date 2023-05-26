@@ -1,4 +1,4 @@
-<mat-card style="width:1000px;height:500px;position:absolute;top:0;bottom: 0;left: 0;right: 0;margin: auto">
+<mat-card style="width:1000px;height:650px;position:absolute;top:0;bottom: 0;left: 0;right: 0;margin: auto">
   <mat-card-content>
     RSA<br>
     <mat-form-field>
@@ -21,7 +21,7 @@
       <input matInput [(ngModel)]="RC4key">
     </mat-form-field><br>
     <mat-form-field>
-      <mat-label>Text de decriptat</mat-label>
+      <mat-label>Text de criptat</mat-label>
       <input matInput [(ngModel)]="toEncryptRC4">
     </mat-form-field>
     <button mat-raised-button style="margin-left:10px" color="primary" (click)="RC4Encrypt()">Criptează</button><br>
@@ -33,5 +33,24 @@
     </mat-form-field>
     <button mat-raised-button style="margin-left:10px" color="primary" (click)="RC4Decrypt()">Decriptează</button><br>
     {{decryptedRC4}}<br>
+
+  AES<br>
+    <mat-form-field>
+      <mat-label>Cheie</mat-label>
+      <input matInput [(ngModel)]="AESkey">
+    </mat-form-field><br>
+    <mat-form-field>
+      <mat-label>Text de decriptat</mat-label>
+      <input matInput [(ngModel)]="toEncryptAES">
+    </mat-form-field>
+    <button mat-raised-button style="margin-left:10px" color="primary" (click)="AESEncrypt()">Criptează</button><br>
+    {{encryptedAES}}<br>
+
+    <mat-form-field>
+      <mat-label>Text de decriptat</mat-label>
+      <input matInput [(ngModel)]="toDecryptAES">
+    </mat-form-field>
+    <button mat-raised-button style="margin-left:10px" color="primary" (click)="AESDecrypt()">Decriptează</button><br>
+    {{decryptedAES}}<br>
   </mat-card-content>
 </mat-card>
