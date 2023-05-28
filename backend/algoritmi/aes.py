@@ -19,6 +19,6 @@ def AES_decrypt(message,key,iv):
 
 if __name__=="__main__":
     iv = get_random_bytes(16)
-    encrypted=AES_encrypt('message','secretkey16bytes',iv)
+    encrypted=AES_encrypt('message','0000000000000000',iv)
     print(encrypted)
-    print(AES_decrypt(encrypted,'secretkey16bytes',iv))
+    print(AES_decrypt(encrypted,'0000000000000000',iv))
