@@ -67,7 +67,7 @@ def get_keys():
 
     global private_key
     global public_key
-    private_key = get_d(e, fi)
+    private_key = [get_d(e, fi)]
 
     public_key = [n, e]
 
@@ -95,7 +95,6 @@ def encrypt(message):
 def decrypt(message):
     result = []
     n=public_key[0]
-    print(n)
 
     for number in message:
         number = int(number)
@@ -115,7 +114,7 @@ def save_keys():
     with open('public_key.txt', 'w') as f:
         f.write(f"{str(public_key[0])}\n")
         f.write(f"{str(public_key[1])}\n")
-        f.write(str(private_key))
+        f.write(str(private_key[0]))
 
 
 def load_keys():
