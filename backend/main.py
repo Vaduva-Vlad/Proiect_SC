@@ -47,6 +47,9 @@ async def encrypt_rc4(request: Request):
     message=data['message']
     key=data['key']
 
+    with open('rc4_key.txt','w') as f:
+        f.write(key)
+
     return rc4_encrypt(message,key)
 
 @app.post("/api/decrypt/rc4")
@@ -63,6 +66,8 @@ async def encrypt_aes(request: Request):
     message = data["message"]
     key = data["key"]
 
+    with open('aes_key.txt','w') as f:
+        f.write(key)
     return AES_encrypt(message,key,iv)
 
 @app.post("/api/decrypt/aes")
